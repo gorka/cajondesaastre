@@ -23,8 +23,8 @@ email: cajondesaastrepodcast@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Otro podcast en el que un par de programadores intentan
   abrirse un hueco en el mundo de los SaaS.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://cajondesaastre.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/cajondesaastre" # the subpath of your site, e.g. /blog
+url: "https://gorka.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 theme: minima
