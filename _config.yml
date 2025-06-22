@@ -27,6 +27,8 @@ baseurl: "/cajondesaastre" # the subpath of your site, e.g. /blog
 url: "https://gorka.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /podcast/:slug
 
+itunes_author: "Gorka & Alfredo"
+
 # Build settings
 theme: minima
 show_excerpts: true

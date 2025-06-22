@@ -1,0 +1,40 @@
+---
+permalink: /podcast.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>{{ site.title }}</title>
+    <description>{{ site.description }}</description>
+    <link>{{ site.url }}</link>
+    <language>es-ES</language>
+
+    <itunes:author>{{ site.itunes_author | escape }}</itunes:author>
+    <itunes:image href="{{ site.url }}{{ site.itunes_image }}"/>
+    <itunes:explicit>yes</itunes:explicit>
+    <itunes:category text="Technology"/>
+    <itunes:owner>
+      <itunes:name>{{ site.itunes_author | escape }}</itunes:name>
+      <itunes:email>{{ site.email }}</itunes:email>
+    </itunes:owner>
+
+    {% for post in site.posts %}
+    {% if post.mp3_url %}
+    <item>
+      <title>{{ post.title }}</title>
+      <link>{{ site.url }}{{ post.url }}</link>
+      <guid>{{ site.url }}{{ post.url }}</guid>
+      <description>{{ post.excerpt | escape }}</description>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+
+      <itunes:image>{{ post.image_url }}</itunes:image>
+      <itunes:duration>{{ post.duration }}</itunes:duration>
+      <itunes:episode>{{ post.episode_number }}</itunes:episode>
+
+      <enclosure url="{{ post.mp3_url }}" length="{{ post.length }}" type="audio/mp3"/>
+    </item>
+    {% endif %}
+    {% endfor %}
+
+  </channel>
+</rss>

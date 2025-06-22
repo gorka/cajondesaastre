@@ -31,9 +31,16 @@ posts = podcasts.map do |podcast|
   podcast = <<-PODCAST
 ---
 layout: post
+
 title: "##{podcast["number"]} - #{podcast["title"]}"
 published: #{podcast["published_at"]}
 excerpt_separator: <!--more-->
+
+episode_number: #{podcast["number"]}
+image_url: #{podcast["image_url"]}
+mp3_url: #{podcast["mp3_url"]}
+duration: #{podcast["duration"]}
+length: #{podcast["length"]}
 ---
 #{podcast["description"]}<!--more-->
 
