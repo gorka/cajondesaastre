@@ -1,5 +1,24 @@
 require "json"
 require "nokogiri"
+require "open-uri"
+
+def download_image(url)
+  filename = File.basename(URI.parse(url).path)
+  save_path = File.join("assets", "img", filename)
+
+  begin
+    URI.open(url, "r", redirect: true) do |remote_file|
+
+      File.open(save_path, "wb") do |file|
+        file.write(remote_file.read)
+      end
+    end
+
+    return save_path
+  rescue => e
+    puts "Error downloading image from #{url}: #{e.message}"
+  end
+end
 
 def fetch_and_replace_images(html)
   doc = Nokogiri::HTML5.fragment(html)
@@ -8,18 +27,13 @@ def fetch_and_replace_images(html)
     caption = attachment["caption"]
     url = attachment["url"]
 
+    file_path = download_image(url)
+
     img = Nokogiri::XML::Node.new("img", doc)
-    img["src"] = url
+    img["src"] = "/#{file_path}"
     img["alt"] = caption || ""
 
-    figcaption = Nokogiri::XML::Node.new("figcaption", doc)
-    figcaption.content = caption
-
-    figure = Nokogiri::XML::Node.new("figure", doc)
-    figure.add_child(img)
-    figure.add_child(figcaption) if caption
-
-    attachment.replace(figure)
+    attachment.replace(img)
   end
 
   doc.to_html
